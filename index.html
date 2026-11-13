@@ -2,15 +2,31 @@
   <head></head>
   <body>
     <h1>My website :D</h1>
+
     <label for="pka">pKa:</label>
     <input type="number" id="pka" step="any">
+
+    <label for="ph">pH:</label>
+    <input type="number" id="ph" step="any">
+
     <button id="go">Calculate fractional protonation</button>
+
+    <p id="result"></p>
+
     <script>
-      //alert('hi!');
       document.getElementById('go').addEventListener('click', function () {
-        document.write('what\'s up');
+        const pKa = parseFloat(document.getElementById('pka').value);
+        const pH = parseFloat(document.getElementById('ph').value);
+
+        if (isNaN(pKa) || isNaN(pH)) {
+          document.getElementById('result').textContent = 'Enter both a pKa and a pH.';
+          return;
+        }
+
+        const fraction = 1 / (1 + Math.pow(10, pH - pKa));
+        document.getElementById('result').textContent =
+          'Fraction protonated: ' + fraction.toFixed(4);
       });
-      pKa = document.getElementById('pka').value
     </script>
   </body>
 </html>
